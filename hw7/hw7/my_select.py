@@ -117,7 +117,6 @@ def select_8():
     ).join(Marks, Marks.subject_id==Subjects.id
     ).group_by(Teachers.name)
     results = query.all()
-    print(results)
     for result in results:
         print(f"Teacher: {result[0]}, average_grade: {result[1]}")
 
@@ -127,6 +126,7 @@ def select_9():
         Students.name,
         func.string_agg(distinct(Subjects.name), '; ').label('course_names')
         ).join(Marks, Marks.subject_id == Subjects.id
+        ).join(Students, Marks.student_id == Students.id
         ).group_by(
         Students.name)
 
